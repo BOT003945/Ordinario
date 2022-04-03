@@ -27,7 +27,11 @@ namespace RazorPetService.Controllers
         {
             return View();
         }
-        
+        public IActionResult LoginAdmin()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Onpost(string Correo, string Contra)
         {
@@ -38,6 +42,23 @@ namespace RazorPetService.Controllers
             {
                 //se crea la sesion y se le asigna un nombre
                 HttpContext.Session.SetString("Sesion1", Cuenta.Correo);
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("AcercaDe", "Home");
+
+        }
+
+
+        [HttpPost]
+        public ActionResult OnpostAdmin(string Correo, string Contra)
+        {
+            //comprobar que la cuenta exista
+            Cuenta = _context.Usuarios.Where(p => p.Correo == Correo && p.Contra == Contra).FirstOrDefault<Usuarios>();
+            //comprobar si existe
+            if (Cuenta != null)
+            {
+                //se crea la sesion y se le asigna un nombre
+                HttpContext.Session.SetString("Sesion0", Cuenta.Correo);
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("AcercaDe", "Home");
@@ -60,6 +81,12 @@ namespace RazorPetService.Controllers
         {
             HttpContext.Session.Remove("Sesion1");
             return RedirectToAction("Login", "Sesion");
+        }
+
+        public ActionResult LogOutAdmin()
+        {
+            HttpContext.Session.Remove("Sesion0");
+            return RedirectToAction("LoginAdmin", "Sesion");
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,29 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPetService.Models;
-using System.IO;
-
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RazorPetService.Controllers
 {
-    public class ServiciosController : Controller
+    public class CategoriasController : Controller
     {
         private readonly PetServiceBContext _context;
 
-        public ServiciosController(PetServiceBContext context)
+        public CategoriasController(PetServiceBContext context)
         {
             _context = context;
         }
         // GET: CitasController
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Servicios.ToListAsync());
+            return View(await _context.Categorias.ToListAsync());
         }
 
         public IActionResult Create()
@@ -34,19 +29,19 @@ namespace RazorPetService.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile archivo, Servicios servicios)
+        public async Task<IActionResult> Create(IFormFile archivo, Categorias categorias)
         {
             if (ModelState.IsValid)
             {
                 //mascotas.FotoMascota = SubirImagen("images", archivo);
-                _context.Add(servicios);
+                _context.Add(categorias);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-        
-            return View(servicios);
+
+            return View(categorias);
         }
-        
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -55,12 +50,12 @@ namespace RazorPetService.Controllers
                 return NotFound();
             }
 
-            var servicios = await _context.Servicios.FindAsync(id);
-            if (servicios == null)
+            var categorias = await _context.Categorias.FindAsync(id);
+            if (categorias == null)
             {
                 return NotFound();
             }
-            return View(servicios);
+            return View(categorias);
         }
 
         // POST: Registrosalumnoes/Edit/5
@@ -68,9 +63,9 @@ namespace RazorPetService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Servicios servicios)
+        public async Task<IActionResult> Edit(int id, Categorias categorias)
         {
-            if (id != servicios.IdServicio)
+            if (id != categorias.IdCategoria)
             {
                 return NotFound();
             }
@@ -79,12 +74,12 @@ namespace RazorPetService.Controllers
             {
                 try
                 {
-                    _context.Update(servicios);
+                    _context.Update(categorias);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiciosExists(servicios.IdServicio))
+                    if (!CategoriasExists(categorias.IdCategoria))
                     {
                         return NotFound();
                     }
@@ -95,7 +90,7 @@ namespace RazorPetService.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(servicios);
+            return View(categorias);
         }
 
 
@@ -106,14 +101,14 @@ namespace RazorPetService.Controllers
                 return NotFound();
             }
 
-            var servicios = await _context.Servicios
-                .FirstOrDefaultAsync(m => m.IdServicio == id);
-            if (servicios == null)
+            var categorias = await _context.Categorias
+                .FirstOrDefaultAsync(m => m.IdCategoria == id);
+            if (categorias == null)
             {
                 return NotFound();
             }
 
-            return View(servicios);
+            return View(categorias);
         }
 
 
@@ -124,15 +119,15 @@ namespace RazorPetService.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var servicios = await _context.Servicios.FindAsync(id);
-            _context.Servicios.Remove(servicios);
+            var categorias = await _context.Categorias.FindAsync(id);
+            _context.Categorias.Remove(categorias);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiciosExists(int id)
+        private bool CategoriasExists(int id)
         {
-            return _context.Servicios.Any(e => e.IdServicio == id);
+            return _context.Categorias.Any(e => e.IdCategoria == id);
         }
     }
 }

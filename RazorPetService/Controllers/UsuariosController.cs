@@ -26,11 +26,19 @@ namespace RazorPetService.Controllers
             return View(await petServiceBContext.ToListAsync());
         }
 
-        // GET: UsuariosController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> Detalle(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var casa = await _context.Productos.FirstOrDefaultAsync(m => m.IdProducto == id);
+            if (casa == null)
+            {
+                return NotFound();
+            }
+            return View(casa);
+        }
 
         public IActionResult Create()
         {
