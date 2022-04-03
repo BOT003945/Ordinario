@@ -114,6 +114,10 @@ namespace RazorPetService.Models
             {
                 entity.HasKey(e => e.IdProducto);
 
+                entity.Property(e => e.FotoProducto)
+                    .IsRequired()
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NombreProducto)
                     .IsRequired()
                     .HasMaxLength(50)

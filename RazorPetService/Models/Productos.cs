@@ -10,7 +10,7 @@ namespace RazorPetService.Models
         public decimal Precio { get; set; }
         public int Cantidad { get; set; }
         public int IdCategoria { get; set; }
-
+        public string FotoProducto { get; set; }
 
         public virtual Categorias IdCategoriaNavigation { get; set; }
     }
