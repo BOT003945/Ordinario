@@ -1,22 +1,14 @@
 ﻿@model IEnumerable<RazorPetService.Models.Mascotas>
 
-
 @{
-    @using Microsoft.AspNetCore.Http;
-        @if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
-        {
-            <meta http-equiv="refresh" content="0;url=https://localhost:5001/Error"/>
-        }
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
-<br />
-<br />
-<br />
+
 <p>
-    <a asp-action="Create">Registrar</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -64,17 +56,15 @@
                 @Html.DisplayFor(modelItem => item.FechaNacimiento)
             </td>
             <td>
-                 <img src="~/images/@Html.DisplayFor(modelItem => item.FotoMascota)" width="250" height="200" />
+                @Html.DisplayFor(modelItem => item.FotoMascota)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombres)
+                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.ApellidoP)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMascota">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMascota">Eliminar</a>
-            </td>                        
-                           
-           
+              
+                <a asp-action="Details" asp-route-id="@item.IdMascota">Details</a> 
+            </td>
         </tr>
 }
     </tbody>

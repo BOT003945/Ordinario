@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<RazorPetService.Models.Usuarios>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -38,7 +40,7 @@
                 <li><a class="nav-link scrollto" asp-area="" asp-controller="Catalogo" asp-action="Index">CATALOGO</a></li>
                 @{
                     @using Microsoft.AspNetCore.Http;
-                    @*@using *@
+
                     if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
                     {
                        //@routes.IgnoreRoute("Sesion/Login");
@@ -52,16 +54,38 @@
                             <ul>
 
                                 <li><a class="nav-link scrollto">PANEL ADMISTRATIVO</a></li>
+                                
+                                
+        
+                                <li><a class="nav-link scrollto" asp-area="" asp-action="#" asp-route-id="IdUsuario">MI INFORMACIÓN</a></li>
+     
+                                
                                 <li><a class="nav-link scrollto" asp-area="" asp-controller="Citas" asp-action="Index">CITAS</a></li>
                                 <li><a class="nav-link scrollto" asp-area="" asp-controller="Mascotas" asp-action="Index">MASCOTAS</a></li>
                                 <li><a class="nav-link scrollto" asp-area="" asp-controller="Servicios" asp-action="Index">SERVICIOS</a></li>
-                                <li><a class="nav-link scrollto" asp-area="" asp-controller="Usuarios" asp-action="Index">USUARIOS</a></li>
                                 <li><a class="btn btn-primary" asp-action="LogOut" asp-controller="Sesion">CERRAR CESION</a> <i class="bi bi-chevron-down"></i>
 
                             </ul>
                         </li>
-                    }
-                }
+                     }
+                        if (string.IsNullOrEmpty(Context.Session.GetString("Sesion0")))
+                        {
+                        }
+                        else
+                       {
+                           <li class="sesion123" hidden><a hidden class="getstarted scrollto" asp-area="" asp-controller="Sesion" asp-action="Login">INICIAR SESION</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="getstarted scrollto" name="sesion123"> @Html.Raw("Bienvenido : " + Context.Session.GetString("Sesion0"));</a> <i class="bi bi-chevron-down"></i>
+                            <ul>
+
+                                 
+                                <li><a class="nav-link scrollto" asp-area="" asp-controller="Usuarios" asp-action="Index">USUARIOS</a></li>
+                                <li><a class="btn btn-primary" asp-action="LogOutAdmin" asp-controller="Sesion">CERRAR CESION</a> <i class="bi bi-chevron-down"></i>
+
+                            </ul>
+                        </li>
+                       }
+                 }
 
 
             </ul>
@@ -84,3 +108,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+

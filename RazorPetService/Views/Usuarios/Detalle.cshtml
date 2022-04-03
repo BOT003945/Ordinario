@@ -1,0 +1,30 @@
+﻿@model RazorPetService.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Detalle";
+}
+
+
+<section class="section my-services" data-section="section2">
+    <div class="container">
+        <div class="section-heading">
+            <h1 style="text-align:center">Tu Información</h1>
+            <div class="line-dec"></div>
+        </div>
+        <div class="card mb-3 text-center bg-light border-light text-dark">
+            <img src="~/images/@Html.DisplayFor(modelItem => Model.FotoPerfil)" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Nombres)</h5>
+                @*<p class="card-text text-center text-dark">Descripcion de la casa: <br /> @Html.DisplayFor(modelItem => Model.DescripcionPropiedad)  </p>
+                <p class="card-text text-center text-dark">Precio: <br /> @Html.DisplayFor(modelItem => Model.Precio)  </p>
+                <p class="card-text text-center text-dark">Cuenta con una superficie de: <br /> @Html.DisplayFor(modelItem => Model.Superficie)  </p>
+                <p class="card-text text-center text-dark">Esta en: <br /> @Html.DisplayFor(modelItem => Model.RentaOventa)  </p>
+                <p class="card-text text-center text-dark">Sus caracteristicas son: <br /> @Html.DisplayFor(modelItem => Model.Caracteristicas)  </p>
+                <p class="card-text text-center text-dark">El tipo de vivienda es: <br /> @Html.DisplayFor(modelItem => Model.TipoVivienda)  </p>*@
+                <div class="white-button">
+                    <a asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>

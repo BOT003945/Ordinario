@@ -6,11 +6,11 @@
 }
 
 <section class="form-login">
-    <form asp-action="Onpost" method="post">
+    <form asp-action="OnpostAdmin" method="post">
         <h5>Formulario de sesión</h5>
         <input class="controls" type="email" name="Correo" id="Correo" asp-for="Correo" value="" placeholder="Usuario">
         <input class="controls" type="password" name="Contra" id="Contra" asp-for="Contra" value="" placeholder="Contraseña">
         <input class="buttons" type="submit" name="" value="Ingresar">
-        <p><a asp-action="LoginAdmin">¿Eres administrador?</a></p>
+        <p><a href="#">Administración</a></p>
     </form>
 </section>
