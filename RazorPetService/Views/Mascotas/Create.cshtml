@@ -1,0 +1,73 @@
+﻿@model RazorPetService.Models.Mascotas
+
+@{
+    
+        @using Microsoft.AspNetCore.Http;
+        @if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
+        {
+            <meta http-equiv="refresh" content="0;url=https://localhost:5001/Error"/>
+        }
+    
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Registrar mascota</h1>
+
+<h4>Mascotas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label" type="hidden"></label>
+                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario" hidden></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control"  pattern="[A-Za-z] placeholder="Nombre de tu mascota"/>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estatura" class="control-label"></label>
+                <input asp-for="Estatura" class="form-control" pattern="[0-9]{10}" placeholder="Centímetros"/>
+                <span asp-validation-for="Estatura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Peso" class="control-label"></label>
+                <input asp-for="Peso" class="form-control" pattern="[0-9]{10}" placeholder="Kilogramos"/>
+                <span asp-validation-for="Peso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sexo" class="control-label"></label>
+                <select asp-for="Sexo" class="form-control">
+                  <option value="Hembra" >Hembra</option>
+                  <option value="Macho" >Macho</option>
+                </select>
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaNacimiento" class="control-label"></label>
+                <input asp-for="FechaNacimiento" class="form-control" required min="2012-01-01" max="2022-04-08"/>
+                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoMascota" class="control-label"></label>
+                <input type="file" name="archivo" asp-for="FotoMascota" class="form-control" required/>
+                <span asp-validation-for="FotoMascota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

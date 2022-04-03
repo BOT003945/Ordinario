@@ -1,0 +1,36 @@
+﻿@model RazorPetService.Models.Mascotas
+
+@{
+    ViewData["Title"] = "Consulta_detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br/>
+
+<br />
+<br />
+<br/>
+<section class="section my-services" data-section="section2">
+    <div class="container">
+        <div class="section-heading">
+            <h1 style="text-align:center">Detalles de la mascota</h1>
+            <div class="line-dec"></div>
+        </div>
+        <div class="card mb-3 text-center bg-light border-light text-dark">
+            <img src="~/images/@Html.DisplayFor(modelItem => Model.FotoMascota)" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Nombre)</h5>
+                <p class="card-text text-center text-dark">Nombre de la mascota: <br /> @Html.DisplayFor(modelItem => Model.Nombre)  </p>
+                <p class="card-text text-center text-dark">Estatura: <br /> @Html.DisplayFor(modelItem => Model.Estatura)  </p>
+                <p class="card-text text-center text-dark">Peso: <br /> @Html.DisplayFor(modelItem => Model.Peso)  </p>
+                <p class="card-text text-center text-dark">Sexo: <br /> @Html.DisplayFor(modelItem => Model.Sexo)  </p>
+                <p class="card-text text-center text-dark">Fecha de Nacimiento: <br /> @Html.DisplayFor(modelItem => Model.FechaNacimiento)  </p>
+
+                <div class="white-button">
+                    <a asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>

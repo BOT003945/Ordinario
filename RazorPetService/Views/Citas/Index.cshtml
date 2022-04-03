@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RazorPetService.Models.Citas>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1>GESTIÓN DE CITAS</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">AGREGAR</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Servicio
+            </th>
+            <th>
+               Tu mascota
+            </th>
+            <th>Fecha</th>
+            <th>Descripcion</th>
+             <th>Estatus</th>
+            @*@{
+                @using Microsoft.AspNetCore.Http;
+                if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
+                {
+                    <th>Estatus</th>
+                }
+            }*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdServicioNavigation.NombreServicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMascotaNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estatus)
+                </td>
+               @*@{
+                @using Microsoft.AspNetCore.Http;
+                if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
+                {
+                        <td>En espera por aprobación</td>
+                    }
+                    else
+                    {  <td>@Html.DisplayFor(modelItem => item.Estatus)</td>
+                         <td>
+                           <a asp-action="Edit" asp-route-id="@item.IdCita">Editar</a> |
+                           <a asp-action="Delete" asp-route-id="@item.IdCita">Eliminar</a>
+                        </td>
+                    }
+                 }*@
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,62 @@
+﻿@model RazorPetService.Models.Citas
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1>BORRAR</h1>
+
+<h3>¿SEGURO QUE DESEAS BORRAR ESTE REGISTRO?</h3>
+<div>
+   
+    <hr />
+    <dl class="row">
+         <dt class="col-sm-2">
+            Servicio
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdServicioNavigation.NombreServicio)
+        </dd>
+        <dt class="col-sm-2">
+            Mi mascota
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdMascotaNavigation.Nombre)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Fecha de cita
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Descripción
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+       
+       <dt class="col-sm-2">
+            Estatus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estatus)
+        </dd>
+        
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdCita" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-outline-primary" asp-action="Index">REGRESAR</a>
+    </form>
+</div>

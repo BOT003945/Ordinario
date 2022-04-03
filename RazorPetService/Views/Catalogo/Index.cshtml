@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RazorPetService.Models.Mascotas>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br/>
+ <section class="section my-services" data-section="section2">
+            <div class="container">
+                <center>
+                    <div class="section-heading">
+                        <h1>Catalogo de mascotas</h1>
+                        <br />
+<br />
+<br/>
+<br />
+<br />
+<br/>
+                        <div class="line-dec"></div>
+                    </div>
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="card text-center text-dark bg-light border-light " style="width: 18rem;">
+                                <img src="~/images/@Html.DisplayFor(modelItem => item.FotoMascota)" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                                    <p class="card-text text-dark">Estatura: @Html.DisplayFor(modelItem => item.Estatura)cm</p>
+                                    <p class="card-text text-dark">Peso: @Html.DisplayFor(modelItem => item.Peso)kg</p>
+                                    <div class="white-button">
+                                        <a asp-action="Consulta_detalle" asp-route-id="@item.IdMascota">Conocer más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </center>
+            </div>
+        </section>
