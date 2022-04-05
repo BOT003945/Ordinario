@@ -4,68 +4,42 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+<br />
+<br />
 
-<h1>Index</h1>
+<style>
+    .card:hover{
+        box-shadow: -1px 9px 40px -12px #808080;
+    }
+</style>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estatura)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Peso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sexo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaNacimiento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FotoMascota)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Peso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sexo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaNacimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FotoMascota)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.ApellidoP)
-            </td>
-            <td>
-              
-                <a asp-action="Details" asp-route-id="@item.IdMascota">Details</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="section my-services" data-section="section2">
+            <div class="container">
+                <center>
+                    <div class="section-heading">
+                        <h1>Catalogo de mascotas</h1>
+                        <div class="line-dec"></div>
+                    </div>
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="card text-center text-dark bg-light border-light " style="width: 18rem;">
+                                <img src="~/images/@Html.DisplayFor(modelItem => item.FotoMascota)" class="card-img-top" alt=""/>
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                                    @*<p class="card-text text-dark">Propietario: @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombres)</p>*@
+                                    <p class="card-text text-dark">Estatura: @Html.DisplayFor(modelItem => item.Estatura)</p>
+                                    <p class="card-text text-dark">Peso: @Html.DisplayFor(modelItem => item.Peso)</p>
+                                    <p class="card-text text-dark">Sexo: @Html.DisplayFor(modelItem => item.Sexo)</p>
+                                    <p class="card-text text-dark">Fecha de Nacimiento: @Html.DisplayFor(modelItem => item.FechaNacimiento)</p>
+                                    <div class="white-button">
+                                        <a asp-action="Consulta_detalle" asp-route-id="@item.IdMascota">Conocer más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </center>
+            </div>
+        </section>

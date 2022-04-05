@@ -5,7 +5,7 @@
     @using Microsoft.AspNetCore.Http;
         @if (string.IsNullOrEmpty(Context.Session.GetString("Sesion1")))
         {
-            <meta http-equiv="refresh" content="0;url=https://localhost:5001/Error"/>
+            <meta http-equiv="refresh" content="0;url=https://localhost:5001/Sesion/Login"/>
         }
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";

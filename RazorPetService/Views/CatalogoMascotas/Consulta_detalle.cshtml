@@ -5,57 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Consulta_detalle</h1>
-
-<div>
-    <h4>Mascotas</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estatura)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estatura)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Peso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Peso)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sexo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sexo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaNacimiento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FotoMascota)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FotoMascota)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuarioNavigation.ApellidoP)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdMascota">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<section class="section my-services" data-section="section2">
+    <div class="container">
+        <div class="section-heading">
+            <h1 style="text-align:center">Casa modelo</h1>
+            <div class="line-dec"></div>
+        </div>
+        <div class="card mb-3 text-center bg-light border-light text-dark">
+            <img src="~/images/@Html.DisplayFor(modelItem => Model.FotoMascota)" class="card-img-top" width="200" height="200">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Nombre)</h5>
+                <p class="card-text text-center text-dark">Propietario: <br /> @Html.DisplayFor(modelItem => Model.IdUsuarioNavigation.Nombres)  </p>
+                <p class="card-text text-center text-dark">Nombre del perro: <br /> @Html.DisplayFor(modelItem => Model.Nombre)  </p>
+                <p class="card-text text-center text-dark">Estatura: <br /> @Html.DisplayFor(modelItem => Model.Estatura) cm</p>
+                <p class="card-text text-center text-dark">Peso: <br /> @Html.DisplayFor(modelItem => Model.Peso) kg</p>
+                <p class="card-text text-center text-dark">Sexo: <br /> @Html.DisplayFor(modelItem => Model.Sexo)</p>
+                <p class="card-text text-center text-dark">Fecha de nacimiento: <br /> @Html.DisplayFor(modelItem => Model.FechaNacimiento)  </p>
+                <div class="white-button">
+                    <a asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>

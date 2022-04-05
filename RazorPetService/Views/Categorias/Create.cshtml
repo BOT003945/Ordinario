@@ -1,21 +1,32 @@
 ﻿@model RazorPetService.Models.Categorias
 
 @{
+    @using Microsoft.AspNetCore.Http;
+        @if (string.IsNullOrEmpty(Context.Session.GetString("Sesion0")))
+        {
+            <meta http-equiv="refresh" content="0;url=https://localhost:5001/Sesion/LoginAdmin"/>
+        }
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>Categorias</h4>
+<br />
+<br />
+<br />
 <hr />
+<h4>Categorías</h4>
+
+<hr />
+<br />
+<br />
+<br />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NombreCategoria" class="control-label"></label>
-                <input asp-for="NombreCategoria" class="form-control" />
+                <input asp-for="NombreCategoria" class="form-control" pattern="[A-Za-z]" maxlength="20"/>
                 <span asp-validation-for="NombreCategoria" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +37,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a lista</a>
 </div>
 
 @section Scripts {
