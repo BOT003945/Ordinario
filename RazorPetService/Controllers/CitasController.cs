@@ -27,7 +27,11 @@ namespace RazorPetService.Controllers
             var petServiceBContext = _context.Citas.Include(p => p.IdServicioNavigation).Include(p => p.IdUsuarioNavigation).Include(p=>p.IdMascotaNavigation);
             return View(await petServiceBContext.ToListAsync());
         }
-
+        public async Task<IActionResult> IndexAdmin()
+        {
+            var petServiceBContext = _context.Citas.Include(p => p.IdServicioNavigation).Include(p => p.IdUsuarioNavigation).Include(p => p.IdMascotaNavigation);
+            return View(await petServiceBContext.ToListAsync());
+        }
         // GET: Proyectoes/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{
@@ -123,7 +127,7 @@ namespace RazorPetService.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAdmin));
             }
             ViewData["IdServicio"] = new SelectList(_context.Servicios, "IdServicio", "NombreServicio", citas.IdServicio);
             ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres", citas.IdUsuario);
@@ -163,7 +167,7 @@ namespace RazorPetService.Controllers
             var citas = await _context.Citas.FindAsync(id);
             _context.Citas.Remove(citas);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAdmin));
         }
 
         private bool CitasExists(int id)

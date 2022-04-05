@@ -29,7 +29,11 @@ namespace RazorPetService.Controllers
         {
             return View();
         }
-        
+        public IActionResult Redirrecion()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

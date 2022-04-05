@@ -52,7 +52,7 @@ namespace RazorPetService.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuarios.FotoPerfil = SubirImagen("images", archivo);
+                usuarios.FotoPerfil = SubirImagen("perfiles", archivo);
                 _context.Add(usuarios);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
