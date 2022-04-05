@@ -14,13 +14,15 @@ namespace RazorPetService.Models
         }
 
         public int IdMascota { get; set; }
-
+              
         [Display(Name = "Propietario (Yo)")]
         public int IdUsuario { get; set; }
-
+        
         [Required]
         public string Nombre { get; set; }
+        
         public decimal? Estatura { get; set; }
+        
         public decimal? Peso { get; set; }
 
         [Required]

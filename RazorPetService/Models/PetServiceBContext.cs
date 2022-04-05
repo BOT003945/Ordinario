@@ -24,6 +24,8 @@ namespace RazorPetService.Models
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Servicios> Servicios { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Ventas> Ventas { get; set; }
+        public virtual DbSet<VentaDetalles> VentaDetalles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -209,6 +211,43 @@ namespace RazorPetService.Models
                     .HasForeignKey(d => d.IdRol)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Usuarios_Roles");
+            });
+
+            modelBuilder.Entity<Ventas>(entity =>
+            {
+                entity.HasKey(e => e.IdVenta);
+
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Venta)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ventas_Usuarios");
+            });
+
+            modelBuilder.Entity<VentaDetalles>(entity =>
+            {
+                entity.HasKey(e => e.IdVentaDetalle);
+
+                entity.Property(e => e.Costo).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Descripción)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdProductoNavigation)
+                    .WithMany(p => p.VentaDetalles)
+                    .HasForeignKey(d => d.IdProducto)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_VentaDetalles_Productos");
+
+                entity.HasOne(d => d.IdVentaNavigation)
+                    .WithMany(p => p.VentaDetalles)
+                    .HasForeignKey(d => d.IdVenta)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_VentaDetalles_Ventas");
             });
 
             OnModelCreatingPartial(modelBuilder);

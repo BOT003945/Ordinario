@@ -12,18 +12,19 @@ namespace RazorPetService.Models
         {
             Cita = new HashSet<Citas>();
             Mascota = new HashSet<Mascotas>();
+            Venta = new HashSet<Ventas>();
         }
 
-
-        
         public int IdUsuario { get; set; }
-        
+
         [Required]
         public string Nombres { get; set; }
+
 
         [Required]
         [Display(Name = "Apellido Paterno")]
         public string ApellidoP { get; set; }
+
 
         [Display(Name = "Apellido Materno")]
         public string ApellidoM { get; set; }
@@ -31,14 +32,14 @@ namespace RazorPetService.Models
         [Required]
         [Display(Name = "Fecha de nacimiento")]
         public DateTime FechaNacimiento { get; set; }
-
-        [Required]
         public string Telefono { get; set; }
-
+        
+        
         [Required]
         [Display(Name = "Dirección")]
         public string Direccion { get; set; }
-        
+
+
         [Required]
         public string Sexo { get; set; }
 
@@ -49,18 +50,16 @@ namespace RazorPetService.Models
         [Display(Name = "Contraseña")]
         public string Contra { get; set; }
 
-        
+
         [Display(Name = "Foto de perfil")]
         public string FotoPerfil { get; set; }
+        
+        
         public int IdRol { get; set; }
 
         public virtual Roles IdRolNavigation { get; set; }
         public virtual ICollection<Citas> Cita { get; set; }
         public virtual ICollection<Mascotas> Mascota { get; set; }
-
-
-        //[Url]
-        //public string Website { get; set; }
-
+        public virtual ICollection<Ventas> Venta { get; set; }
     }
 }

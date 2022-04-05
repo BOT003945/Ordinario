@@ -15,7 +15,7 @@ namespace RazorPetService.Models
 
         public int IdServicio { get; set; }
 
-        [Display(Name="Servicio")]
+        [Display(Name = "Servicio")]
         public string NombreServicio { get; set; }
 
         public virtual ICollection<Citas> Cita { get; set; }
