@@ -26,6 +26,7 @@ namespace RazorPetService.Models
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Ventas> Ventas { get; set; }
         public virtual DbSet<VentaDetalles> VentaDetalles { get; set; }
+        public virtual DbSet<Veterinarios> Veterinarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -81,6 +82,11 @@ namespace RazorPetService.Models
                     .HasForeignKey(d => d.IdUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Citas_Usuarios");
+
+                entity.HasOne(d => d.IdVeterinarioNavigation)
+                    .WithMany(p => p.Cita)
+                    .HasForeignKey(d => d.IdVeterinario)
+                    .HasConstraintName("FK_Citas_Veterinarios");
             });
 
             modelBuilder.Entity<Mascotas>(entity =>
@@ -163,6 +169,12 @@ namespace RazorPetService.Models
             modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario);
+
+                entity.HasIndex(e => e.Correo, "IX_Correo")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Telefono, "IX_Telefono_1")
+                    .IsUnique();
 
                 entity.Property(e => e.ApellidoM)
                     .HasMaxLength(100)
@@ -248,6 +260,51 @@ namespace RazorPetService.Models
                     .HasForeignKey(d => d.IdVenta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VentaDetalles_Ventas");
+            });
+
+            modelBuilder.Entity<Veterinarios>(entity =>
+            {
+                entity.HasKey(e => e.IdVeterinario);
+
+                entity.HasIndex(e => e.Email, "IX_Email")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Telefono, "IX_Telefono")
+                    .IsUnique();
+
+                entity.Property(e => e.ApellidoM)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ApellidoP)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Direccion)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombres)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Telefono)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FotoV)
+                    .IsRequired()
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
