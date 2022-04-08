@@ -1,63 +1,66 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPetService.Models;
+using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RazorPetService.Controllers
 {
-    public class MascotasController : Controller
+    public class VeterinarioController : Controller
     {
         private readonly PetServiceBContext _context;
-        Mascotas mascotas1 = new Mascotas();    
-        public MascotasController(PetServiceBContext context)
+
+        public VeterinarioController(PetServiceBContext context)
         {
             _context = context;
         }
-
-        public ActionResult IndexU(int id)
+        public async Task<IActionResult> Index()
         {
-            //var petServiceBContext = _context.Mascotas.Include(p => p.IdUsuarioNavigation);
-            return View(mascotas1.Obtener(id));
+            return View(await _context.Veterinarios.ToListAsync());
         }
-        public async Task<IActionResult> DetailsU(int id)
+        public async Task<IActionResult> Catalogo()
         {
-
-            return View(mascotas1.Obtener(id));
+            return View(await _context.Veterinarios.ToListAsync());
         }
-        
 
-        // GET: CitasController
-        public async Task<IActionResult> IndexA()
+
+        public async Task<IActionResult> Detalle(int? id)
         {
-            var petServiceBContext = _context.Mascotas.Include(p => p.IdUsuarioNavigation);
-            return View(await petServiceBContext.ToListAsync());
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var veter = await _context.Veterinarios.FirstOrDefaultAsync(m => m.IdVeterinario == id);
+            if (veter == null)
+            {
+                return NotFound();
+            }
+            return View(veter);
         }
 
         public IActionResult Create()
         {
-            
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres");
+
+            //ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile archivo,  Mascotas mascotas)
+        public async Task<IActionResult> Create(IFormFile archivo, Veterinarios veterinarios)
         {
             if (ModelState.IsValid)
             {
-                mascotas.FotoMascota = SubirImagen("images", archivo);
-                _context.Add(mascotas);
+                veterinarios.FotoV = SubirImagen("veterinarios", archivo);
+                _context.Add(veterinarios);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres", mascotas.IdUsuario);
-            return View(mascotas);
+
+            return View(veterinarios);
         }
         private string SubirImagen(string RutaCarpeta, IFormFile ArchivoSubir)
         {
@@ -80,13 +83,12 @@ namespace RazorPetService.Controllers
                 return NotFound();
             }
 
-            var mascotas = await _context.Mascotas.FindAsync(id);
-            if (mascotas == null)
+            var veterinarios = await _context.Veterinarios.FindAsync(id);
+            if (veterinarios == null)
             {
                 return NotFound();
             }
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres", mascotas.IdUsuario);
-            return View(mascotas);
+            return View(veterinarios);
         }
 
         // POST: Registrosalumnoes/Edit/5
@@ -94,9 +96,9 @@ namespace RazorPetService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile archivo, Mascotas mascotas)
+        public async Task<IActionResult> Edit(int id, IFormFile archivo, Veterinarios veterinarios)
         {
-            if (id != mascotas.IdMascota)
+            if (id != veterinarios.IdVeterinario)
             {
                 return NotFound();
             }
@@ -105,13 +107,13 @@ namespace RazorPetService.Controllers
             {
                 try
                 {
-                    mascotas.FotoMascota = SubirImagen("images", archivo);
-                    _context.Update(mascotas);
+                    veterinarios.FotoV = SubirImagen("images", archivo);
+                    _context.Update(veterinarios);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MascotasExists(mascotas.IdMascota))
+                    if (!VeterinariosExists(veterinarios.IdVeterinario))
                     {
                         return NotFound();
                     }
@@ -122,8 +124,7 @@ namespace RazorPetService.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "IdUsuario", "Nombres", mascotas.IdUsuario);
-            return View(mascotas);
+            return View(veterinarios);
         }
 
 
@@ -134,15 +135,14 @@ namespace RazorPetService.Controllers
                 return NotFound();
             }
 
-            var mascotas = await _context.Mascotas
-                .Include(r => r.IdUsuarioNavigation)
-                .FirstOrDefaultAsync(m => m.IdMascota == id);
-            if (mascotas == null)
+            var veterinarios = await _context.Veterinarios
+                .FirstOrDefaultAsync(m => m.IdVeterinario == id);
+            if (veterinarios == null)
             {
                 return NotFound();
             }
 
-            return View(mascotas);
+            return View(veterinarios);
         }
 
 
@@ -153,15 +153,15 @@ namespace RazorPetService.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mascotas = await _context.Mascotas.FindAsync(id);
-            _context.Mascotas.Remove(mascotas);
+            var veterinarios = await _context.Veterinarios.FindAsync(id);
+            _context.Veterinarios.Remove(veterinarios);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MascotasExists(int id)
+        private bool VeterinariosExists(int id)
         {
-            return _context.Mascotas.Any(e => e.IdMascota == id);
+            return _context.Veterinarios.Any(e => e.IdVeterinario == id);
         }
     }
 }
