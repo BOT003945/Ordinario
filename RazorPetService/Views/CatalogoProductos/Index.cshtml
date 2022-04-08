@@ -3,44 +3,34 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <br />
 <br />
 <br />
 
-<style>
-    .card:hover{
-        box-shadow: -1px 9px 40px -12px #808080;
-    }
-</style>
+<div class="conatiner">
+<div class="wrap">
+	
+	@foreach(var item in Model){
+	<div class="box one" >
+		
+		<div class="date">
+			<h4>@Html.DisplayFor(modelItem => item.Precio)</h4>
+		</div>
+		<img src="~/productos//@Html.DisplayFor(modelItem => item.FotoProducto)" class="card-img-top" alt=""/>
+		<h1>@Html.DisplayFor(modelItem => item.NombreProducto)</h1>
+		<div class="poster p1">
+			<h4>Z</h4>
+		</div>
+	</div>
+	}
+	
 
-<section class="section my-services" data-section="section2">
-            <div class="container">
-                <center>
-                    <div class="section-heading">
-                        <h1>Catalogo de productos</h1>
-                        <div class="line-dec"></div>
-                    </div>
-                    <div class="row">
-                        @foreach (var item in Model)
-                        {
-                            <div class="card text-center text-dark bg-light border-light " style="width: 18rem;">
-                                <img src="~/images/@Html.DisplayFor(modelItem => item.FotoProducto)" class="card-img-top" alt=""/>
-                                <div class="card-body">
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.NombreProducto)</h5>
-                                    @*<p class="card-text text-dark">Propietario: @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombres)</p>*@
-                                    <p class="card-text text-dark">Cantidad: @Html.DisplayFor(modelItem => item.Cantidad)</p>
-                                    <p class="card-text text-dark">Categoria: @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.NombreCategoria)</p>
-                                    <p class="card-text text-dark">Precio: @Html.DisplayFor(modelItem => item.Precio)$</p>
-                                    
-                                    <div class="white-button">
-                                        <a asp-action="Consulta_detalle" asp-route-id="@item.IdProducto">Conocer más</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </center>
-            </div>
-        </section>
+	
+</div>
+</div>
+
+<!-- FOLLOW -->
+@*<a class="Follow" href="https://codepen.io/ZaynAlaoudi/" target="blank_"></a>*@

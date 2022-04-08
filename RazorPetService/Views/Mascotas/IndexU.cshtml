@@ -1,0 +1,72 @@
+﻿@model List<RazorPetService.Models.Mascotas>
+
+@{
+    ViewData["Title"] = "Ver";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Información</h1>
+
+<p>
+    <a asp-action="Create">Registrar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Estatura
+            </th>
+            <th>
+                Peso
+            </th>
+            <th>
+                Sexo
+            </th>
+            <th>
+                FechaNacimiento
+            </th>
+            <th>
+                FotoMascota
+            </th>
+            <th>
+                IdUsuarioNavigation
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Nombre)
+            </td>
+            <td>
+                @item.Estatura)
+            </td>
+            <td>
+                @item.Peso)
+            </td>
+            <td>
+                @item.Sexo)
+            </td>
+            <td>
+                @item.FechaNacimiento)
+            </td>
+            <td>
+                @item.FotoMascota)
+            </td>
+            <td>
+                @item.IdUsuarioNavigation.ApellidoP)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdMascota">Edit</a> |
+                <a asp-action="DetailsU" asp-route-id="@item.IdMascota">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMascota">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
